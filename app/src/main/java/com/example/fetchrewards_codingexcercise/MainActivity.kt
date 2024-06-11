@@ -3,13 +3,13 @@ package com.example.fetchrewards_codingexcercise
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.collections.List
-import android.view.View;
+import android.view.View
 
 /** Mainactivity handles data requests and responses in a recyclerview*/
 class MainActivity : AppCompatActivity() {
@@ -42,17 +42,17 @@ class MainActivity : AppCompatActivity() {
 
                 // this filters and sorts the items in the list based on requirements
                 //this sorts results first by listID and then by name(considering name as a string and sorting it lexicographically)
-//                if (response.isSuccessful && response.body() != null) {
-//                    val items = response.body()!!
-//                        .filter { it.name != null && it.name!!.isNotEmpty() }
-//                        .sortedWith(compareBy({ it.listId }, { it.name }))
-
-                  // Alternate solution - if we want to sort the name by considering it as a string
-                  //consider the substring after "Item " and sort it numerically
                 if (response.isSuccessful && response.body() != null) {
                     val items = response.body()!!
                         .filter { it.name != null && it.name!!.isNotEmpty() }
-                        .sortedWith(compareBy({ it.listId }, { it.name!!.substringAfter("Item ").toIntOrNull() ?: 0 }))
+                        .sortedWith(compareBy({ it.listId }, { it.name }))
+
+                  // Alternate solution - if we want to sort the name by considering it as a string
+                  //consider the substring after "Item " and sort it numerically
+//                if (response.isSuccessful && response.body() != null) {
+//                    val items = response.body()!!
+//                        .filter { it.name != null && it.name!!.isNotEmpty() }
+//                        .sortedWith(compareBy({ it.listId }, { it.name!!.substringAfter("Item ").toIntOrNull() ?: 0 }))
 
                     itemAdapter = ItemAdapter(items)
                     recyclerView.adapter = itemAdapter
